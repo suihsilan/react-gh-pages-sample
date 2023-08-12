@@ -96,7 +96,7 @@ const Week1 = ({ menuListData, handlerClick }) => {
                     type="button"
                     variant="primary"
                     className="addItem"
-                    onClick={() => handlerClick(item.id, "add")}
+                    onClick={() => handlerClick(item.id)}
                   >
                     +
                   </Button>
@@ -105,7 +105,7 @@ const Week1 = ({ menuListData, handlerClick }) => {
                     type="button"
                     variant="danger"
                     className="minusItem"
-                    onClick={() => handlerClick(item.id)}
+                    onClick={() => handlerClick(item.id, "minus")}
                   >
                     -
                   </Button>

@@ -69,10 +69,15 @@ function App() {
   const handlerClick = (id, state) => {
     console.log("有成功執行這行"); //click事件有執行這行
     const newData = menuListData.map((data) => {
-      data.id === id
+      return data.id === id
         ? {
             ...data,
-            quantity: state === "add" ? data.quantity + 1 : data.quantity - 1,
+            quantity:
+              state === "minus"
+                ? data.quantity > 0
+                  ? data.quantity - 1
+                  : 0
+                : data.quantity + 1,
           }
         : data;
     });
