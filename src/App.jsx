@@ -66,8 +66,9 @@ const menuList = [
 ];
 function App() {
   const [menuListData, setmenuListData] = useState(menuList);
+  const [editItem, setEditItem] = useState(null);
   const handlerClick = (id, state) => {
-    console.log("有成功執行這行"); //click事件有執行這行
+    //console.log("有成功執行這行"); //click事件有執行這行
     const newData = menuListData.map((data) => {
       return data.id === id
         ? {
@@ -83,12 +84,57 @@ function App() {
     });
 
     setmenuListData(newData);
-    console.log(menuListData); //也有執行這行
+    // console.log(menuListData); //也有執行這行
   };
+  //編輯品項內容-這裡最重要的就是要取得“要被編輯的該品項資料”
+  const handleEditClick = (id) => {
+    //透過.find方法取的該項要被編輯的產品資料
+    const editData = menuListData.find((data) => {
+      return data.id === id;
+    });
+    //把需要編輯的該品項資料藉由useState寫入
+    setEditItem(editData);
+    console.log(editData);
+  };
+
+  const handleChangeKeyValue = (e) => {
+    const { name, value } = e.target;
+    setEditItem((data) => ({ ...data, [name]: value }));
+  };
+
+  const submit = () => {
+    console.log("submit");
+    // const { id, itemName, description, price } = editItem;
+    const newEditData = menuListData.map((data) => {
+      return data.id === editItem.id
+        ? {
+            ...data,
+            itemName: editItem.itemName,
+            description: editItem.description,
+            price: editItem.price,
+          }
+        : data;
+    });
+    setEditItem(newEditData);
+    console.log(newEditData); //有執行這行
+    cancel();
+  };
+  const cancel = () => {
+    setEditItem(null);
+  };
+
   return (
     <div>
       <Header />
-      <Week1 menuListData={menuListData} handlerClick={handlerClick} />
+      <Week1
+        editItem={editItem}
+        menuListData={menuListData}
+        handlerClick={handlerClick}
+        handleEditClick={handleEditClick}
+        handleChangeKeyValue={handleChangeKeyValue}
+        submit={submit}
+        cancel={cancel}
+      />
       <hr />
       <Week2 />
       <hr />
