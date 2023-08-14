@@ -115,7 +115,7 @@ function App() {
           }
         : data;
     });
-    setEditItem(newEditData);
+    setmenuListData(newEditData);
     console.log(newEditData); //有執行這行
     cancel();
   };
